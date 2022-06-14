@@ -7,7 +7,7 @@
 #include "lion/math/ipopt_cppad_handler.hpp"
 
 inline std::pair<std::vector<Circuit_preprocessor::Coordinates>,std::vector<Circuit_preprocessor::Coordinates>>
-    Circuit_preprocessor::read_kml(Xml_document& coord_left_kml, Xml_document& coord_right_kml)
+    Circuit_preprocessor::read_kml(Xml_document& coord_left_kml, Xml_document& coord_right_kml, bool clockwise = true)
 {
     // Get child with data for the left boundary 
     const std::vector<scalar> coord_left_raw  = coord_left_kml.get_element("kml/Document/Placemark/LineString/coordinates").get_value(std::vector<scalar>());
@@ -31,6 +31,12 @@ inline std::pair<std::vector<Circuit_preprocessor::Coordinates>,std::vector<Circ
     for (size_t i = 0; i < n_right; ++i)
         coord_right[i] = {coord_right_raw[3*i],coord_right_raw[3*i+1]};
 
+    // reverse
+    if (clockwise) {
+        std::reverse(coord_right.begin(), coord_right.end());
+        std::reverse(coord_left.begin(), coord_left.end());
+    }
+    
     return {coord_left, coord_right};
 }
 
@@ -510,7 +516,7 @@ inline std::unique_ptr<Xml_document> Circuit_preprocessor::xml() const
     // Add the data
     auto data = root.add_child("data");
     data.add_attribute("number_of_points",std::to_string(n_points));
-
+    
     // Arc-length
     for (size_t i = 0; i < n_points-1; ++i)
         s_out << s[i] << ", " ;
