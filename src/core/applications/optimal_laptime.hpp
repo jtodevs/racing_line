@@ -31,7 +31,7 @@ inline Optimal_laptime<Dynamic_model_t>::Optimal_laptime(const std::vector<scala
     const Options opts)
 : options(opts), integral_quantities(), is_closed(is_closed_), is_direct(is_direct_), warm_start(true), 
   s(s_), q(q0), qa(qa0), control_variables(control_variables_0.check()),
-  optimization_data({.zl{zl},.zu{zu},.lambda{lambda}})
+  optimization_data({.zl={zl},.zu={zu},.lambda={lambda}})
 {
     // (1) Check inputs
     check_inputs(car);

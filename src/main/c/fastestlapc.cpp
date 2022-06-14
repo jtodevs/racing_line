@@ -1150,7 +1150,8 @@ void compute_optimal_laptime(vehicle_t& vehicle, Track_by_polynomial& track, con
     // (4) Start from the steady-state values at 0g    
     scalar v = conf.steady_state_speed*KMH;
 
-    auto ss = Steady_state(car_cart).solve(v,0.0,0.0); 
+    Steady_state ss_ = Steady_state(car_cart);
+    auto ss = ss_.solve(v,0.0,0.0); 
 
     if constexpr (std::is_same_v<vehicle_t,lot2016kart_all>)
         ss.u[1] = 0.0;

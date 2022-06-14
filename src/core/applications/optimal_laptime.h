@@ -232,19 +232,19 @@ class Optimal_laptime
 
     //! A """""factory""""" for control variables
     static Control_variable<> create_dont_optimize() 
-    { return Control_variable<>{ .optimal_control_type{DONT_OPTIMIZE}, .s_hypermesh{}, .u{}, .dudt{}, .dissipation{} }; }
+    { return Control_variable<>{ .optimal_control_type=DONT_OPTIMIZE, .s_hypermesh={}, .u={}, .dudt={}, .dissipation={} }; }
 
     static Control_variable<> create_constant(const scalar u)
-    { return Control_variable<>{ .optimal_control_type{CONSTANT}, .s_hypermesh{}, .u{u}, .dudt{}, .dissipation{} }; }
+    { return Control_variable<>{ .optimal_control_type=CONSTANT, .s_hypermesh={}, .u={u}, .dudt={}, .dissipation={} }; }
 
     static Control_variable<> create_hypermesh(const std::vector<scalar>& s_hypermesh, const std::vector<scalar>& u)
-    { return Control_variable<>{ .optimal_control_type{HYPERMESH}, .s_hypermesh{s_hypermesh}, .u{u}, .dudt{}, .dissipation{} }; }
+    { return Control_variable<>{ .optimal_control_type=HYPERMESH, .s_hypermesh={s_hypermesh}, .u={u}, .dudt={}, .dissipation={} }; }
 
     static Control_variable<> create_full_mesh(const std::vector<scalar>& u, const scalar dissipation)
-    { return Control_variable<>{ .optimal_control_type{FULL_MESH}, .s_hypermesh{}, .u{u}, .dudt{}, .dissipation{dissipation} }; }
+    { return Control_variable<>{ .optimal_control_type=FULL_MESH, .s_hypermesh={}, .u={u}, .dudt={}, .dissipation={dissipation} }; }
 
     static Control_variable<> create_full_mesh(const std::vector<scalar>& u, const std::vector<scalar>& dudt, const scalar dissipation)
-    { return Control_variable<>{ .optimal_control_type{FULL_MESH}, .s_hypermesh{}, .u{u}, .dudt{dudt}, .dissipation{dissipation} }; }
+    { return Control_variable<>{ .optimal_control_type=FULL_MESH, .s_hypermesh={}, .u={u}, .dudt={dudt}, .dissipation={dissipation} }; }
 
     //! Default constructor
     Optimal_laptime() = default;
