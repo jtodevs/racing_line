@@ -1553,9 +1553,13 @@ struct Circuit_preprocessor_configuration
         // Check that is_closed is present
         if ( !doc.has_element("options/is_closed") ) throw std::runtime_error("[ERROR] circuit_preprocessor_validate_options -> missing mandatory node options/is_closed");
         is_closed = doc.get_element("options/is_closed").get_value(bool());
-
+        
         // Check that open tracks must be generated with equally spaced nodes
         if ( !is_closed && (mode == REFINED) ) throw std::runtime_error("[ERROR] circuit_preprocessor_validate_options -> open tracks must be computed with mode=\"equally-spaced\"");
+
+        if ( doc.has_element("options/clockwise")) {
+            clockwise = doc.get_element("options/clockwise").get_value(bool());
+        }
 
         switch (mode)
         {
@@ -1623,6 +1627,7 @@ struct Circuit_preprocessor_configuration
     std::string kml_file_left;
     std::string kml_file_right;
     Mode mode      = EQUALLY_SPACED;
+    bool clockwise = false;
     bool is_closed = false;
     size_t n_el    = 0;
     std::vector<scalar> s_distribution;
@@ -1684,7 +1689,7 @@ void circuit_preprocessor(const char* options)
      case (Circuit_preprocessor_configuration::EQUALLY_SPACED):
         if ( conf.is_closed )
         {
-            circuit_preprocessor = Circuit_preprocessor(kml_file_left, kml_file_right, preprocessor_options, conf.n_el);
+            circuit_preprocessor = Circuit_preprocessor(kml_file_left, kml_file_right, conf.clockwise, preprocessor_options, conf.n_el);
         }
         else
         {
@@ -1694,7 +1699,7 @@ void circuit_preprocessor(const char* options)
         break;
 
      case (Circuit_preprocessor_configuration::REFINED):
-        circuit_preprocessor = Circuit_preprocessor(kml_file_left, kml_file_right, preprocessor_options, conf.s_distribution, conf.ds_distribution);
+        circuit_preprocessor = Circuit_preprocessor(kml_file_left, kml_file_right, conf.clockwise, preprocessor_options, conf.s_distribution, conf.ds_distribution);
 
         break;
 

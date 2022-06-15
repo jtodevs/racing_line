@@ -49,11 +49,12 @@ class Circuit_preprocessor
     template<typename ... Args>
     Circuit_preprocessor(Xml_document& coord_left_kml, 
                          Xml_document& coord_right_kml,
+                         bool clockwise,
                          Options opts,
                          Args&&... args)
     {
         // (1) Read the KML files and transform to vector of coordinates
-        auto [coord_left, coord_right] = read_kml(coord_left_kml,coord_right_kml);
+        auto [coord_left, coord_right] = read_kml(coord_left_kml,coord_right_kml, clockwise);
 
         // (2) Call the proper implementation from vector of coordinates 
         *this = Circuit_preprocessor(coord_left, coord_right, opts, std::forward<Args>(args)...);
@@ -254,7 +255,7 @@ class Circuit_preprocessor
         std::vector<CppAD::AD<scalar>> _dist2_center;
     };
 
-    std::pair<std::vector<Coordinates>,std::vector<Coordinates>> read_kml(Xml_document& coord_left_kml, Xml_document& coord_right_kml);
+    std::pair<std::vector<Coordinates>,std::vector<Coordinates>> read_kml(Xml_document& coord_left_kml, Xml_document& coord_right_kml, bool clockwise=false);
 
     //! Compute the averaged centerline between r_left and r_right with given number of elements
     template<bool closed>

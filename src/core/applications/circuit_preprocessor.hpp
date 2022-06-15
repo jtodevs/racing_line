@@ -7,7 +7,7 @@
 #include "lion/math/ipopt_cppad_handler.hpp"
 
 inline std::pair<std::vector<Circuit_preprocessor::Coordinates>,std::vector<Circuit_preprocessor::Coordinates>>
-    Circuit_preprocessor::read_kml(Xml_document& coord_left_kml, Xml_document& coord_right_kml, bool clockwise = true)
+    Circuit_preprocessor::read_kml(Xml_document& coord_left_kml, Xml_document& coord_right_kml, bool clockwise)
 {
     // Get child with data for the left boundary 
     const std::vector<scalar> coord_left_raw  = coord_left_kml.get_element("kml/Document/Placemark/LineString/coordinates").get_value(std::vector<scalar>());
