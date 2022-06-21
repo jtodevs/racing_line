@@ -5,7 +5,10 @@ project(fastest-lap VERSION 1.0)
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/include)
-SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+#SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_SOURCE_DIR}/third-party)
+
+
 
 option(CHECK_BOUNDS "Enable bounds check at runtime" OFF)
 option(ENABLE_TESTS "Enable testing" ON)
