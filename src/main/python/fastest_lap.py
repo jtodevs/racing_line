@@ -225,9 +225,9 @@ def plot_gg(ay,ay_minus,ax_max,ax_min):
 
 def plot_track(x_center, y_center, x_left, y_left, x_right, y_right, theta):
 	fig = plt.figure(figsize=(14,7));
-	plt.axis('equal');
+	#plt.axis('equal');
 	plt.grid(False);
-	plt.plot(x_center,y_center,linewidth=0.5,color=(0.5372549019607843, 0.6039215686274509, 0.7215686274509804, 1.0),linestyle=(0, (20, 4)));
+	plt.plot(x_center,y_center,linewidth=1,color=(0.5372549019607843, 0.6039215686274509, 0.7215686274509804, 1.0),linestyle=(0, (20, 4)));
 	plt.plot(x_left,y_left,linewidth=1,color=(0.5372549019607843, 0.6039215686274509, 0.7215686274509804, 1.0));
 	plt.plot(x_right,y_right,linewidth=1,color=(0.5372549019607843, 0.6039215686274509, 0.7215686274509804, 1.0));
 
