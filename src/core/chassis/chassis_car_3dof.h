@@ -1,6 +1,7 @@
 #ifndef __CHASSIS_CAR_3DOF_H__
 #define __CHASSIS_CAR_3DOF_H__
 
+#include "src/core/foundation/fastest_lap_exception.h"
 #include "chassis.h"
 #include <array>
 #include <vector>
@@ -134,7 +135,7 @@ class Chassis_car_3dof : public Chassis<Timeseries_t,FrontAxle_t, RearAxle_t, ST
          case (IFZFR): return _neg_Fz_fr; break; 
          case (IFZRL): return _neg_Fz_rl; break; 
          case (IFZRR): return _neg_Fz_rr; break; 
-         default:      throw std::runtime_error("Id is incorrect");
+         default:      throw fastest_lap_exception("Id is incorrect");
         }
     }
 
@@ -203,6 +204,9 @@ class Chassis_car_3dof : public Chassis<Timeseries_t,FrontAxle_t, RearAxle_t, ST
     Timeseries_t   _roll_balance_coeff; //! [c] Coefficient in [0,1], usually 1/2, such that: Fz_fr − Fz_fl = D(Fz_fr + Fz_rr − Fz_fl − Fz_rl)
     scalar         _Fz_max_ref2;        //! [c] Square of the parasitic smooth positive force when Fz = 0
 
+    // Controllability properties
+    scalar  _maximum_throttle;
+
     // Variables    ----------------------------------------------------------------
 
     // Setteable variables
@@ -244,7 +248,8 @@ class Chassis_car_3dof : public Chassis<Timeseries_t,FrontAxle_t, RearAxle_t, ST
         { "pressure_center/z", _x_aero.z() },
         { "brake_bias", _brake_bias_0 },
         { "roll_balance_coefficient", _roll_balance_coeff},
-        { "Fz_max_ref2", _Fz_max_ref2 }
+        { "Fz_max_ref2", _Fz_max_ref2 },
+        { "maximum_throttle", _maximum_throttle }
     );  
 };
 

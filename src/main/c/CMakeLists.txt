@@ -8,10 +8,15 @@ else()
     set(CONSTRUCT_LIBFASTESTLAPC ON)
 endif()
 
+
 if ( ${CONSTRUCT_LIBFASTESTLAPC} )
     add_library(fastestlapc SHARED ./fastestlapc.cpp)
     
-    set_target_properties(fastestlapc PROPERTIES CXX_VISIBILITY_PRESET hidden)
+    set_target_properties(fastestlapc PROPERTIES 
+	CXX_VISIBILITY_PRESET hidden
+        VERSION ${PROJECT_VERSION}
+        SOVERSION ${PROJECT_VERSION_MAJOR}
+    )
     
     set_target_properties(fastestlapc PROPERTIES
         PUBLIC_HEADER ./fastestlapc.h

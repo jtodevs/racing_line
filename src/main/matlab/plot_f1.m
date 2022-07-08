@@ -6,6 +6,12 @@ else
     skin = 'generic';
 end
 
+if ( nargin > 6 )
+    color = varargin{2};
+else
+    color = [1.0,1.0,1.0];
+end
+
 if ( strcmpi(skin,'generic') )
     [im_original,~,alpha_original] = imread('f1_marker.png');
     
@@ -20,6 +26,16 @@ elseif ( strcmpi(skin, 'redbull') )
     tire_rl = [358, 739];
     tire_fr = [135, 257];
     scale = 1;
+    
+elseif ( strcmpi(skin, 'ferrari') )
+    [im_original,~,alpha_original] = imread('ferrari2022.png');
+    alpha_original(1:400,:) = 0.0;
+    tire_rr = [542, 2088];
+    tire_rl = [1162, 2088];
+    tire_fr = [542, 680];
+    scale = 2;
+else
+    error('Skin name not recognized');
 end
 
 alpha_original(alpha_original < 250) = 0;
@@ -32,7 +48,7 @@ alpha = imresize(alpha_original,[size(im_original,1)/scale,size(im_original,2)/s
 %im_light = imresize(im_original,[size(im_original,1)/(scale*2),size(im_original,2)/(scale*2)]);
 
 % put im_light to zeros;
-im_light = zeros(size(im_original,1)/(scale*2),size(im_original,2)/(scale*2),3);
+im_light = zeros(round(size(im_original,1)/(scale*2)),round(size(im_original,2)/(scale*2)),3);
 
 for i = -1:1
     for j = -1:1
@@ -130,6 +146,13 @@ alpha_scaled = imresize(alpha,[size(alpha,1)*track_to_wb_desired/track_to_wb_img
 im_rotated = imrotate(im_scaled,-psi,'bilinear');
 alpha_rotated = imrotate(alpha_scaled,-psi,'bilinear');
 
+for i = 1 : size(im_rotated,1)
+    for j = 1 : size(im_rotated,2)
+        for k = 1 : 3
+            im_rotated(i,j,k) = double(im_rotated(i,j,k))*color(k);
+        end
+    end
+end
 
 h_im = imagesc(x_range,y_range,im_rotated);
 h_im.AlphaData = alpha_rotated;

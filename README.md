@@ -5,7 +5,8 @@ Fastest-lap is a vehicle dynamics simulator. It can be used to understand vehicl
 [![MacOS](https://github.com/juanmanzanero/fastest-lap/actions/workflows/macos.yml/badge.svg)](https://github.com/juanmanzanero/fastest-lap/actions/workflows/macos.yml)
 [![Linux](https://github.com/juanmanzanero/fastest-lap/actions/workflows/linux.yml/badge.svg)](https://github.com/juanmanzanero/fastest-lap/actions/workflows/linux.yml)
 [![Windows](https://github.com/juanmanzanero/fastest-lap/actions/workflows/windows.yml/badge.svg)](https://github.com/juanmanzanero/fastest-lap/actions/workflows/windows.yml)
-
+[![Documentation Status](https://readthedocs.org/projects/fastest-lap/badge/?version=latest)](https://fastest-lap.readthedocs.io/en/latest/?badge=latest)
+[![codecov](https://codecov.io/gh/juanmanzanero/fastest-lap/branch/main/graph/badge.svg?token=YOS7XJ8ZGP)](https://codecov.io/gh/juanmanzanero/fastest-lap)
 
 ![test](https://user-images.githubusercontent.com/26557659/173203219-077be886-7c84-49a8-a4c7-762c9f6933f7.png)
 
@@ -72,7 +73,20 @@ Fastest-lap uses several open-source libraries:
 [loggercpp]: https://github.com/juanmanzanero/logger-cpp
 [lioncpp]: https://github.com/juanmanzanero/lion-cpp
 
-### Compilation
+### Installation
+
+#### Windows 10
+
+Precompiled binaries are available to download for every release.
+  - [v0.1](https://github.com/juanmanzanero/fastest-lap/releases/tag/v0.1)
+
+Download and unzip. The contents of the zip folder are:
+  - bin: the dynamic libraries. Fastest-lap C++ core is there. If fastest-lap is used from MATLAB, point `loadlibrary()` to this directory.
+  - include: fastestlapc.h and fastest_lap.py. To use python scripts, make sure this folder is on the `PYTHONPATH`
+  - examples: python notebook examples.
+  - database: car and track data
+
+#### Mac and Linux
 
 This project uses CMake to build the source code and produce the binaries.
 
@@ -126,6 +140,11 @@ A Docker build environment is provided and can be used to compile the shared lib
 ```shell
 sh ./src/scripts/linux/docker_compile.sh
 ```
+
+
+### Documentation
+
+Read the latest fastest-lap [online documentation](http://fastest-lap.readthedocs.io/)
 
 ### References
 
